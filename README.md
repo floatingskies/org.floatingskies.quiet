@@ -205,8 +205,6 @@ AY70-Y8QI-DL4L
    - Corpo: o código de 9 linhas + instruções para colar no app
 7. Cliente cola o código na tela de ativação → vitalício liberado!
 
-> **Importante**: O segredo `BloqueadorBR-2024-Lifetime-Protect-Key` está embarcado no APK. Um usuário técnico poderia extraí-lo (fazendo engenharia reversa) e gerar códigos próprios. Para máxima segurança, em uma versão futura, considere adicionar validação online (backend) que verifique o código contra um banco de dados de códigos emitidos.
-
 ---
 
 ## 🏗️ Estrutura do projeto
@@ -307,7 +305,6 @@ O app bloqueia chamadas baseado **apenas no número de telefone**. Não identifi
 ## 📞 Suporte
 
 - **Email do desenvolvedor:** arielcloss@gmail.com
-- **PIX (doações):** +55 69 9342-7132 ou arielcloss@gmail.com (NUBANK)
 
 Para reportar bugs ou sugerir melhorias, envie um email para o desenvolvedor.
 
