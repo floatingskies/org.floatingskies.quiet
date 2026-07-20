@@ -56,4 +56,35 @@ object PhoneUtils {
         val s = telefone.filter { it.isDigit() }
         return s.isBlank() || telefone.contains("UNKNOWN") || telefone.contains("PRIVATE")
     }
+
+    /** Verifica se o número é um número de emergência brasileiro ou internacional. */
+    fun isEmergency(telefone: String?): Boolean {
+        if (telefone.isNullOrBlank()) return false
+        val s = telefone.filter { it.isDigit() }
+        val emergencias = setOf("190", "192", "193", "197", "112", "911", "156", "190")
+        // Check if the number matches any emergency number
+        return emergencias.any { s.endsWith(it) || s == it }
+    }
+
+    /** Verifica se o número é internacional (não começa com 55/DDI Brasil). */
+    fun isInternational(telefone: String?): Boolean {
+        if (telefone.isNullOrBlank()) return false
+        val s = telefone.filter { it.isDigit() }
+        // Se tem DDI e não é 55, é internacional
+        if (s.length > 11) {
+            // Verifica se o número tem DDI que não é Brasil
+            val possiveisDDI = s.take(3).toIntOrNull()
+            if (possiveisDDI != null && possiveisDDI != 55) return true
+            val ddi2 = s.take(2).toIntOrNull()
+            if (ddi2 != null && ddi2 != 55 && s.length in 12..15) return true
+        }
+        return false
+    }
+
+    /** Extrai o DDD (prefixo de 2 dígitos) de um número normalizado. */
+    fun getPrefixo(telefone: String?): String {
+        if (telefone.isNullOrBlank()) return ""
+        val s = normalizar(telefone).removePrefix("55")
+        return if (s.length >= 2) s.substring(0, 2) else ""
+    }
 }

@@ -2,27 +2,17 @@ package org.floatingskies.quiet
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.floatingskies.quiet.databinding.ActivityMainBinding
-import org.floatingskies.quiet.ui.activation.ActivationActivity
 import org.floatingskies.quiet.ui.blocked.BlockedCallsActivity
-import org.floatingskies.quiet.ui.payment.PaymentActivity
 import org.floatingskies.quiet.ui.settings.SettingsActivity
 import org.floatingskies.quiet.ui.whitelist.WhitelistActivity
-import kotlinx.coroutines.launch
 
-/**
- * Tela principal (dashboard).
- *
- * Mostra o status da proteção e atalhos para as 4 principais áreas:
- *  - Whitelist
- *  - Chamadas bloqueadas
- *  - Ativar versão completa
- *  - Configurações
- */
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
@@ -44,7 +34,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun atualizarStatus() {
         val prefs = App.instance.prefs
-        val db = App.instance.database
 
         // Toggle de proteção
         binding.switchProtecao.setOnCheckedChangeListener(null)
@@ -55,34 +44,20 @@ class MainActivity : AppCompatActivity() {
         }
         atualizarCardStatus()
 
-        // Plano
-        if (prefs.ativado) {
-            binding.txtPlano.text = getString(R.string.dash_premium_msg)
-            binding.txtPlano.setTextColor(ContextCompat.getColor(this, R.color.verde))
-            binding.txtPlano.setBackgroundColor(ContextCompat.getColor(this, R.color.ativo_verde))
-            binding.cardAtivar.visibility = View.GONE
-        } else {
-            binding.txtPlano.text = getString(R.string.dash_trial_msg)
-            binding.txtPlano.setTextColor(ContextCompat.getColor(this, R.color.amarelo))
-            binding.cardAtivar.visibility = View.VISIBLE
-        }
-
         // Contadores
         lifecycleScope.launch {
-            val whitelist = db.whitelistDao().listarTodos()
-            val bloqueadas = db.blockedCallDao().contar()
+            val db = App.instance.database
+            val whitelist = withContext(Dispatchers.IO) { db.whitelistDao().listarTodos() }
+            val bloqueadas = withContext(Dispatchers.IO) { db.blockedCallDao().contar() }
+            val bloqueadasHoje = withContext(Dispatchers.IO) { db.blockedCallDao().contarHoje() }
 
-            val limite = if (prefs.ativado) Int.MAX_VALUE else 11
-            binding.txtWhitelistCount.text = if (prefs.ativado) {
-                "${whitelist.size} contatos (ilimitado) ❤️"
-            } else {
-                "${whitelist.size} de $limite contato(s) na lista"
-            }
+            binding.txtWhitelistCount.text = "${whitelist.size}"
+            binding.txtBlockedToday.text = "$bloqueadasHoje"
 
             binding.txtBlockedCount.text = if (bloqueadas == 0) {
                 getString(R.string.dash_card_blocked_desc)
             } else {
-                "$bloqueadas número(s) bloqueado(s)"
+                "$bloqueadas ${getString(R.string.dash_blocked_total)}"
             }
         }
     }
@@ -110,9 +85,6 @@ class MainActivity : AppCompatActivity() {
         }
         binding.cardBlocked.setOnClickListener {
             startActivity(Intent(this, BlockedCallsActivity::class.java))
-        }
-        binding.cardAtivar.setOnClickListener {
-            startActivity(Intent(this, PaymentActivity::class.java))
         }
         binding.cardConfig.setOnClickListener {
             startActivity(Intent(this, SettingsActivity::class.java))

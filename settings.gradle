@@ -12,5 +12,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "BloqueadorChamadasBR"
+rootProject.name = "Quiet"
 include ':app'

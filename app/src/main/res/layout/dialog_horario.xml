@@ -8,75 +8,48 @@
     android:background="@color/bg_card">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Digitar número manualmente"
-        android:textAppearance="@style/TextoCard"
-        android:textColor="@color/ciano" />
+        android:text="Defina o horário em que TODAS as chamadas não-whitelisted serão bloqueadas automaticamente."
+        android:textColor="@color/texto_secundario"
+        android:textSize="@dimen/text_caption"
+        android:lineSpacingExtra="2dp"
+        android:layout_marginBottom="@dimen/spacing_lg" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/spacing_lg"
-        android:hint="@string/wl_digite_nome"
-        app:helperTextTextColor="@color/ciano"
+        android:hint="Hora de início (0-23)"
         app:boxCornerRadiusTopStart="@dimen/corner_radius_small"
         app:boxCornerRadiusTopEnd="@dimen/corner_radius_small"
         app:boxCornerRadiusBottomStart="@dimen/corner_radius_small"
         app:boxCornerRadiusBottomEnd="@dimen/corner_radius_small"
         style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edtNome"
+            android:id="@+id/edtInicio"
             android:layout_width="match_parent"
             android:layout_height="@dimen/touch_target_min"
+            android:inputType="number"
             android:textColor="@color/texto_primario"
-            android:textSize="@dimen/text_subtitle"
-            android:inputType="textPersonName" />
+            android:textSize="@dimen/text_subtitle" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/spacing_md"
-        android:hint="@string/wl_digite_telefone"
+        android:hint="Hora de fim (0-23)"
         app:boxCornerRadiusTopStart="@dimen/corner_radius_small"
         app:boxCornerRadiusTopEnd="@dimen/corner_radius_small"
         app:boxCornerRadiusBottomStart="@dimen/corner_radius_small"
         app:boxCornerRadiusBottomEnd="@dimen/corner_radius_small"
         style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edtTelefone"
+            android:id="@+id/edtFim"
             android:layout_width="match_parent"
             android:layout_height="@dimen/touch_target_min"
+            android:inputType="number"
             android:textColor="@color/texto_primario"
-            android:textSize="@dimen/text_subtitle"
-            android:inputType="phone" />
+            android:textSize="@dimen/text_subtitle" />
     </com.google.android.material.textfield.TextInputLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="@dimen/spacing_lg"
-        android:gravity="end|center_vertical">
-
-        <Button
-            android:id="@+id/btnCancelar"
-            style="@style/Widget.Material3.Button.TextButton"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/touch_target_min"
-            android:minHeight="@dimen/touch_target_min"
-            android:text="@string/wl_cancelar"
-            android:textColor="@color/texto_secundario"
-            android:textSize="@dimen/text_caption" />
-
-        <Button
-            android:id="@+id/btnSalvar"
-            style="@style/BotaoPrimario"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/spacing_md"
-            android:minHeight="@dimen/touch_target_min"
-            android:text="@string/wl_salvar" />
-    </LinearLayout>
 </LinearLayout>

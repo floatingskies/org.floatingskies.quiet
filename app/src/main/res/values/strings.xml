@@ -15,13 +15,14 @@
     <string name="onb_perm_phone">Telefone e chamadas</string>
     <string name="onb_perm_contacts">Contatos (importar para a lista)</string>
     <string name="onb_perm_notifications">Notificações silenciosas</string>
-    <string name="onb_perm_overlay">Sobrepor a outros apps</string>
     <string name="onb_perm_battery">Ignorar otimização de bateria</string>
     <string name="onb_perm_padrao">App de filtragem de chamadas (Android 10+)</string>
     <string name="onb_btn_conceder">Conceder permissões</string>
     <string name="onb_btn_proximo">Avançar</string>
     <string name="onb_btn_comecar">Começar a me proteger</string>
     <string name="onb_aviso_padrao">No Android 10+, o Quiet precisa ser definido como "app de filtragem de chamadas" para bloquear chamadas silenciosamente. O Google Telefone continua como discador padrão — você só permite que o Quiet filtre as chamadas recebidas.</string>
+    <string name="onb_todas_concedidas">Todas as permissões concedidas</string>
+    <string name="onb_falta_permissoes">Conceda todas as permissões para o app funcionar</string>
 
     <!-- ===== Dashboard / MainActivity ===== -->
     <string name="dash_status_ativo">Proteção ATIVA</string>
@@ -32,14 +33,12 @@
     <string name="dash_card_whitelist_desc">Números autorizados a ligar para você</string>
     <string name="dash_card_blocked_titulo">Chamadas bloqueadas</string>
     <string name="dash_card_blocked_desc">Veja quem tentou ligar e foi bloqueado</string>
-    <string name="dash_card_ativar_titulo">Ativar versão completa</string>
-    <string name="dash_card_ativar_desc">Pagamento único vitalício</string>
     <string name="dash_card_config_titulo">Configurações</string>
     <string name="dash_card_config_desc">Ajuste o comportamento do bloqueio</string>
-    <string name="dash_desativar_protecao">Desativar proteção temporariamente</string>
-    <string name="dash_ativar_protecao">Ativar proteção</string>
-    <string name="dash_trial_msg">Versão gratuita: até 11 contatos. Doe R$ 4,99 vitalício para apoiar o projeto e liberar contatos ILIMITADOS.</string>
-    <string name="dash_premium_msg">Versão vitalícia ativada. Contatos ILIMITADOS. Muito obrigado pela doação! ❤️</string>
+    <string name="dash_blocked_today">Bloqueadas hoje</string>
+    <string name="dash_trusted_contacts">Contatos confiáveis</string>
+    <string name="dash_open_source_msg">Open Source — Gratuito e ilimitado. Proteção total contra golpes.</string>
+    <string name="dash_blocked_total">no total bloqueado(s)</string>
 
     <!-- ===== Whitelist ===== -->
     <string name="titulo_whitelist">Minha lista de confiança</string>
@@ -48,54 +47,22 @@
     <string name="wl_btn_adicionar">Adicionar contato</string>
     <string name="wl_btn_importar">Importar dos contatos</string>
     <string name="wl_btn_digitar">Digitar número manualmente</string>
+    <string name="wl_btn_importar_todos">Importar TODOS os contatos</string>
     <string name="wl_digite_nome">Nome (ex: Mãe, Filho, Médico)</string>
     <string name="wl_digite_telefone">Telefone (com DDD)</string>
-    <string name="wl_limite_trial">Versão gratuita: %1$d de 11 contatos</string>
-    <string name="wl_limite_premium">Versão vitalícia: %1$d contatos (ilimitado) ❤️</string>
-    <string name="wl_limite_atingido">Limite de 11 contatos atingido. Doe R$ 4,99 vitalício para liberar contatos ILIMITADOS.</string>
+    <string name="wl_contagem">%1$d contatos na lista</string>
     <string name="wl_remover">Remover</string>
     <string name="wl_remover_pergunta">Remover %1$s da sua lista?</string>
     <string name="wl_sim">Sim, remover</string>
     <string name="wl_cancelar">Cancelar</string>
     <string name="wl_salvar">Salvar</string>
     <string name="wl_erro_duplicado">Este número já está na sua lista</string>
-
-    <!-- ===== Pagamento (Doação) ===== -->
-    <string name="titulo_pagamento">Doação vitalícia — Apoie o projeto</string>
-    <string name="pag_valor">R$ 4,99 (doação única vitalícia)</string>
-    <string name="pag_beneficio1">Contatos ILIMITADOS na lista de confiança</string>
-    <string name="pag_beneficio2">Bloqueio silencioso vitalício (para sempre)</string>
-    <string name="pag_beneficio3">Atualizações gratuitas para sempre</string>
-    <string name="pag_beneficio4">Sem mensalidade, sem renovação automática</string>
-    <string name="pag_msg_doacao">💛 Esta é uma DOAÇÃO, não uma compra. Ela ajuda o desenvolvedor a manter o projeto vivo, pagar servidores e melhorar o app para todos os brasileiros. Cada doação faz diferença!</string>
-    <string name="pag_como_pagar">Como doar via PIX:</string>
-    <string name="pag_passo1">1. Escaneie o QR Code abaixo com seu app de banco</string>
-    <string name="pag_passo2">2. Doe R$ 4,99 via PIX</string>
-    <string name="pag_passo3">3. Anote o comprovante (ID da transação)</string>
-    <string name="pag_passo4">4. Informe seu email e o ID abaixo</string>
-    <string name="pag_passo5">5. Você receberá o código vitalício no email</string>
-    <string name="pag_email">Seu email</string>
-    <string name="pag_comprovante">ID do comprovante (opcional)</string>
-    <string name="pag_btn_confirmar">Confirmar doação</string>
-    <string name="pag_btn_pagar">Já doei — receber código</string>
-    <string name="pag_aviso">Após confirmar, o código de 9 linhas será enviado do email arielcloss@gmail.com para o email que você informar. O código também pode aparecer aqui no app em alguns minutos.</string>
-    <string name="pag_erro_email">Informe um email válido</string>
-    <string name="pag_sucesso">Doação registrada! Verifique seu email (incluindo spam) em até 30 minutos. O remetente é arielcloss@gmail.com. Muito obrigado! ❤️</string>
-    <string name="pag_chave_pix">Chaves PIX:\nTelefone: +55 69 9342-7132\nEmail: arielcloss@gmail.com\nBanco: NUBANK</string>
-
-    <!-- ===== Ativação ===== -->
-    <string name="titulo_ativacao">Ativar com código</string>
-    <string name="at_intro">Digite o código de 9 linhas que você recebeu por email.</string>
-    <string name="at_dica">Dica: você pode colar o código. Ele tem o formato:</string>
-    <string name="at_formato">XXXX-XXXX-XXXX\nXXXX-XXXX-XXXX\n… (9 linhas)</string>
-    <string name="at_codigo">Código de ativação (9 linhas)</string>
-    <string name="at_btn_ativar">Ativar</string>
-    <string name="at_btn_colar">Colar código</string>
-    <string name="at_btn_compartilhar">Compartilhar código</string>
-    <string name="at_erro_invalido">Código inválido. Verifique se você copiou todas as 9 linhas corretamente.</string>
-    <string name="at_sucesso">Ativado com sucesso! Proteção vitalícia liberada.</string>
-    <string name="at_ja_ativado">Sua versão já está ativada.</string>
-    <string name="at_compartilhar_titulo">Compartilhar código de ativação</string>
+    <string name="wl_erro_contato">Erro ao ler contato. Tente digitar o número manualmente.</string>
+    <string name="wl_importar_todos_titulo">Importar todos os contatos?</string>
+    <string name="wl_importar_todos_msg">Todos os contatos do seu telefone serão adicionados à lista de confiança. Contatos duplicados serão ignorados.</string>
+    <string name="wl_importar_todos_ok">Contatos importados com sucesso!</string>
+    <string name="wl_pesquisar">Pesquisar na lista…</string>
+    <string name="wl_vazio_filtro">Nenhum contato encontrado</string>
 
     <!-- ===== Chamadas bloqueadas ===== -->
     <string name="titulo_bloqueadas">Chamadas bloqueadas</string>
@@ -104,6 +71,12 @@
     <string name="bl_btn_limpar">Limpar histórico</string>
     <string name="bl_btn_exportar">Exportar CSV (denúncia)</string>
     <string name="bl_exportar_msg">CSV salvo. Você pode enviá-lo à Anatel ou Polícia Civil.</string>
+    <string name="bl_confirmar_limpar">Limpar todo o histórico de chamadas bloqueadas?</string>
+    <string name="bl_confirmar_limpar_sim">Sim, limpar</string>
+    <string name="bl_confirmar_excluir">Excluir %1$s do histórico?</string>
+    <string name="bl_vazia_exportar">Nenhuma chamada bloqueada para exportar</string>
+    <string name="bl_scammer_badge">⚠ Golpista frequente</string>
+    <string name="bl_exportado_sucesso">Exportado com sucesso!</string>
 
     <!-- ===== Configurações ===== -->
     <string name="titulo_config">Configurações</string>
@@ -111,11 +84,23 @@
     <string name="cfg_protecao_desc">Quando desligada, todas as chamadas são recebidas normalmente</string>
     <string name="cfg_ocultos">Bloquear números ocultos</string>
     <string name="cfg_ocultos_desc">Bloqueia chamadas de números privados/sem identificação</string>
+    <string name="cfg_internacionais">Bloquear números internacionais</string>
+    <string name="cfg_internacionais_desc">Bloqueia chamadas de números com código de país diferente do +55</string>
+    <string name="cfg_emergencia">Permitir chamadas de emergência</string>
+    <string name="cfg_emergencia_desc">Nunca bloquear números de emergência (190, 192, 193, 197, 112, 911)</string>
     <string name="cfg_notif">Avisar ao bloquear (silencioso)</string>
     <string name="cfg_notif_desc">Notificação sem som/vibração ao bloquear uma chamada</string>
+    <string name="cfg_horario">Modo noturno</string>
+    <string name="cfg_horario_desc">Bloqueia TODAS as chamadas não-whitelisted no horário definido</string>
+    <string name="cfg_horario_titulo">Definir horário noturno</string>
+    <string name="cfg_prefixo_titulo">Bloquear por DDD</string>
+    <string name="cfg_prefixo_mensagem">Digite os DDDs separados por vírgula. Chamadas desses DDDs serão bloqueadas automaticamente.</string>
+    <string name="cfg_prefixo_nenhum">Nenhum DDD bloqueado</string>
+    <string name="cfg_prefixo_ativo">DDDs bloqueados: %1$s</string>
     <string name="cfg_sobre">Sobre o app</string>
-    <string name="cfg_versao">Versão 1.0 - Jaguatirica</string>
+    <string name="cfg_versao">Versão 26.07 — Security Guarawolf</string>
     <string name="cfg_legal">Aviso legal: este app é uma ferramenta de proteção. Não substitui denúncia formal à Anatel/Polícia.</string>
+    <string name="cfg_open_source">Código aberto e gratuito. Sem paywall, sem anúncios, sem coleta de dados.</string>
 
     <!-- ===== Comuns ===== -->
     <string name="ok">OK</string>
@@ -130,7 +115,9 @@
     <!-- ===== Notificações ===== -->
     <string name="notif_bloqueio_titulo">🛡️ Chamada bloqueada</string>
     <string name="notif_bloqueio_texto">%1$s foi bloqueado silenciosamente</string>
-    <string name="notif_servico_titulo">Proteção BR ativa</string>
+    <string name="notif_bloqueio_channel_name">Bloqueio de chamadas</string>
+    <string name="notif_bloqueio_channel_desc">Notificações silenciosas quando uma chamada é bloqueada</string>
+    <string name="notif_servico_titulo">Quiet ativo</string>
     <string name="notif_servico_texto">Bloqueando chamadas fora da sua lista de confiança</string>
 
 </resources>

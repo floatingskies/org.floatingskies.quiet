@@ -1,49 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:gravity="center_vertical"
     android:background="@color/bg_card_destaque"
-    android:padding="16dp"
-    android:layout_marginBottom="8dp"
-    android:elevation="2dp">
+    android:paddingStart="@dimen/spacing_md"
+    android:paddingEnd="@dimen/spacing_md"
+    android:paddingTop="@dimen/spacing_md"
+    android:paddingBottom="@dimen/spacing_md"
+    android:layout_marginBottom="@dimen/spacing_sm"
+    android:minHeight="@dimen/touch_target_min">
 
     <ImageView
         android:id="@+id/imgStatus"
-        android:layout_width="28dp"
-        android:layout_height="28dp"
+        android:layout_width="@dimen/icon_size_medium"
+        android:layout_height="@dimen/icon_size_medium"
         android:src="@drawable/ic_check"
-        android:tint="@color/cinza_claro" />
+        app:tint="@color/cinza_claro"
+        android:contentDescription="Permission status" />
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:layout_marginStart="14dp"
+        android:layout_marginStart="@dimen/spacing_md"
         android:orientation="vertical">
         <TextView
             android:id="@+id/txtTitulo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/texto_primario"
-            android:textSize="16sp"
+            android:textSize="@dimen/text_body"
             android:textStyle="bold" />
         <TextView
             android:id="@+id/txtDesc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
             android:textColor="@color/texto_secundario"
-            android:textSize="13sp" />
+            android:textSize="@dimen/text_small" />
     </LinearLayout>
 
     <TextView
         android:id="@+id/txtStatus"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/touch_target_min"
+        android:gravity="center"
+        android:minHeight="@dimen/touch_target_min"
+        android:minWidth="@dimen/touch_target_min"
         android:text="Conceder"
         android:textColor="@color/ciano"
-        android:textSize="14sp"
+        android:textSize="@dimen/text_caption"
         android:textStyle="bold"
-        android:padding="6dp" />
+        android:paddingStart="@dimen/spacing_md"
+        android:paddingEnd="@dimen/spacing_md" />
 </LinearLayout>

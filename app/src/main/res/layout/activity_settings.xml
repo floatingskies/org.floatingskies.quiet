@@ -9,189 +9,503 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/preto">
+        android:background="@color/preto"
+        android:fitsSystemWindows="true">
+
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:title="@string/titulo_config"
             app:navigationIcon="?attr/homeAsUpIndicator"
-            app:titleTextColor="@color/ciano" />
+            app:titleTextColor="@color/ciano"
+            app:titleTextAppearance="@style/TextoCard" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="20dp">
+            android:padding="@dimen/spacing_lg"
+            android:layout_gravity="center_horizontal">
 
-            <!-- ===== Seção: Proteção ===== -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="PROTEÇÃO"
-                android:textColor="@color/ciano"
-                android:textSize="13sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="8dp" />
-
-            <com.google.android.material.card.MaterialCardView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardBackgroundColor="@color/bg_card"
-                app:cardCornerRadius="14dp"
-                app:cardElevation="2dp"
-                android:layout_marginBottom="8dp">
+                android:orientation="vertical"
+                android:maxWidth="@dimen/content_max_width"
+                android:layout_gravity="center_horizontal">
 
-                <LinearLayout
+                <!-- ===== Section: Protection ===== -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="PROTEÇÃO"
+                    android:textColor="@color/ciano"
+                    android:textSize="@dimen/text_small"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="@dimen/spacing_sm" />
+
+                <!-- Switch: Proteção ativa -->
+                <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:padding="16dp">
+                    app:cardBackgroundColor="@color/bg_card"
+                    app:cardCornerRadius="@dimen/corner_radius_card"
+                    app:cardElevation="2dp"
+                    android:layout_marginBottom="@dimen/spacing_xs">
 
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-                        <TextView
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/card_padding_horizontal"
+                        android:paddingTop="@dimen/spacing_md"
+                        android:paddingBottom="@dimen/spacing_md">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_marginEnd="@dimen/spacing_md">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/cfg_protecao"
+                                android:textColor="@color/texto_primario"
+                                android:textSize="@dimen/text_body"
+                                android:textStyle="bold" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/cfg_protecao_desc"
+                                android:textColor="@color/texto_secundario"
+                                android:textSize="@dimen/text_small"
+                                android:layout_marginTop="2dp" />
+                        </LinearLayout>
+                        <com.google.android.material.materialswitch.MaterialSwitch
+                            android:id="@+id/switchProtecao"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/cfg_protecao"
-                            android:textColor="@color/texto_primario"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/cfg_protecao_desc"
-                            android:textColor="@color/texto_secundario"
-                            android:textSize="13sp" />
+                            android:minHeight="@dimen/touch_target_min" />
                     </LinearLayout>
-                    <com.google.android.material.materialswitch.MaterialSwitch
-                        android:id="@+id/switchProtecao"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
+                </com.google.android.material.card.MaterialCardView>
 
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardBackgroundColor="@color/bg_card"
-                app:cardCornerRadius="14dp"
-                app:cardElevation="2dp"
-                android:layout_marginBottom="24dp">
-
-                <LinearLayout
+                <!-- Switch: Bloquear ocultos -->
+                <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:padding="16dp">
+                    app:cardBackgroundColor="@color/bg_card"
+                    app:cardCornerRadius="@dimen/corner_radius_card"
+                    app:cardElevation="2dp"
+                    android:layout_marginBottom="@dimen/spacing_xs">
 
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-                        <TextView
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/card_padding_horizontal"
+                        android:paddingTop="@dimen/spacing_md"
+                        android:paddingBottom="@dimen/spacing_md">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_marginEnd="@dimen/spacing_md">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/cfg_ocultos"
+                                android:textColor="@color/texto_primario"
+                                android:textSize="@dimen/text_body"
+                                android:textStyle="bold" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/cfg_ocultos_desc"
+                                android:textColor="@color/texto_secundario"
+                                android:textSize="@dimen/text_small"
+                                android:layout_marginTop="2dp" />
+                        </LinearLayout>
+                        <com.google.android.material.materialswitch.MaterialSwitch
+                            android:id="@+id/switchOcultos"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/cfg_ocultos"
-                            android:textColor="@color/texto_primario"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/cfg_ocultos_desc"
-                            android:textColor="@color/texto_secundario"
-                            android:textSize="13sp" />
+                            android:minHeight="@dimen/touch_target_min" />
                     </LinearLayout>
-                    <com.google.android.material.materialswitch.MaterialSwitch
-                        android:id="@+id/switchOcultos"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
+                </com.google.android.material.card.MaterialCardView>
 
-            <!-- ===== Seção: Sobre ===== -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="SOBRE"
-                android:textColor="@color/ciano"
-                android:textSize="13sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="8dp" />
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardBackgroundColor="@color/bg_card"
-                app:cardCornerRadius="14dp"
-                app:cardElevation="2dp"
-                android:layout_marginBottom="16dp">
-
-                <LinearLayout
+                <!-- Switch: Bloquear internacionais -->
+                <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
+                    app:cardBackgroundColor="@color/bg_card"
+                    app:cardCornerRadius="@dimen/corner_radius_card"
+                    app:cardElevation="2dp"
+                    android:layout_marginBottom="@dimen/spacing_xs">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/app_name"
-                        android:textColor="@color/texto_primario"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/txtVersao"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="@string/cfg_versao"
-                        android:textColor="@color/texto_secundario"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:id="@+id/txtStatusPlano"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:textColor="@color/verde"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/cinza_medio"
-                        android:layout_marginTop="12dp"
-                        android:layout_marginBottom="12dp" />
-
-                    <TextView
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/cfg_legal"
-                        android:textColor="@color/texto_secundario"
-                        android:textSize="13sp" />
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/card_padding_horizontal"
+                        android:paddingTop="@dimen/spacing_md"
+                        android:paddingBottom="@dimen/spacing_md">
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="40dp" />
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_marginEnd="@dimen/spacing_md">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/cfg_internacionais"
+                                android:textColor="@color/texto_primario"
+                                android:textSize="@dimen/text_body"
+                                android:textStyle="bold" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/cfg_internacionais_desc"
+                                android:textColor="@color/texto_secundario"
+                                android:textSize="@dimen/text_small"
+                                android:layout_marginTop="2dp" />
+                        </LinearLayout>
+                        <com.google.android.material.materialswitch.MaterialSwitch
+                            android:id="@+id/switchInternacionais"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:minHeight="@dimen/touch_target_min" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
 
+                <!-- Switch: Emergency bypass -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardBackgroundColor="@color/bg_card"
+                    app:cardCornerRadius="@dimen/corner_radius_card"
+                    app:cardElevation="2dp"
+                    android:layout_marginBottom="@dimen/spacing_xs">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/card_padding_horizontal"
+                        android:paddingTop="@dimen/spacing_md"
+                        android:paddingBottom="@dimen/spacing_md">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_marginEnd="@dimen/spacing_md">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/cfg_emergencia"
+                                android:textColor="@color/texto_primario"
+                                android:textSize="@dimen/text_body"
+                                android:textStyle="bold" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/cfg_emergencia_desc"
+                                android:textColor="@color/texto_secundario"
+                                android:textSize="@dimen/text_small"
+                                android:layout_marginTop="2dp" />
+                        </LinearLayout>
+                        <com.google.android.material.materialswitch.MaterialSwitch
+                            android:id="@+id/switchEmergencia"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:minHeight="@dimen/touch_target_min" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Switch: Notificar ao bloquear -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardBackgroundColor="@color/bg_card"
+                    app:cardCornerRadius="@dimen/corner_radius_card"
+                    app:cardElevation="2dp"
+                    android:layout_marginBottom="@dimen/spacing_lg">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/card_padding_horizontal"
+                        android:paddingTop="@dimen/spacing_md"
+                        android:paddingBottom="@dimen/spacing_md">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_marginEnd="@dimen/spacing_md">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/cfg_notif"
+                                android:textColor="@color/texto_primario"
+                                android:textSize="@dimen/text_body"
+                                android:textStyle="bold" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/cfg_notif_desc"
+                                android:textColor="@color/texto_secundario"
+                                android:textSize="@dimen/text_small"
+                                android:layout_marginTop="2dp" />
+                        </LinearLayout>
+                        <com.google.android.material.materialswitch.MaterialSwitch
+                            android:id="@+id/switchNotificar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:minHeight="@dimen/touch_target_min" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- ===== Section: Advanced ===== -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="REGRAS AVANÇADAS"
+                    android:textColor="@color/ciano"
+                    android:textSize="@dimen/text_small"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="@dimen/spacing_sm" />
+
+                <!-- Switch: Horário noturno -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardBackgroundColor="@color/bg_card"
+                    app:cardCornerRadius="@dimen/corner_radius_card"
+                    app:cardElevation="2dp"
+                    android:layout_marginBottom="@dimen/spacing_xs">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/card_padding_horizontal"
+                        android:paddingTop="@dimen/spacing_md"
+                        android:paddingBottom="@dimen/spacing_md">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_marginEnd="@dimen/spacing_md">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/cfg_horario"
+                                android:textColor="@color/texto_primario"
+                                android:textSize="@dimen/text_body"
+                                android:textStyle="bold" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/cfg_horario_desc"
+                                android:textColor="@color/texto_secundario"
+                                android:textSize="@dimen/text_small"
+                                android:layout_marginTop="2dp" />
+                        </LinearLayout>
+                        <com.google.android.material.materialswitch.MaterialSwitch
+                            android:id="@+id/switchHorarioNoturno"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:minHeight="@dimen/touch_target_min" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Card: Detalhe horário noturno -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardHorarioDetalhe"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardBackgroundColor="@color/bg_card_destaque"
+                    app:cardCornerRadius="@dimen/corner_radius_card"
+                    app:cardElevation="2dp"
+                    android:layout_marginBottom="@dimen/spacing_xs"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackground">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="@dimen/spacing_md">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Horário de bloqueio noturno"
+                            android:textColor="@color/texto_secundario"
+                            android:textSize="@dimen/text_small" />
+
+                        <TextView
+                            android:id="@+id/txtHorarioNoturno"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:textColor="@color/ciano"
+                            android:textSize="22sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Card: Bloquear por DDD -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardPrefixo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardBackgroundColor="@color/bg_card"
+                    app:cardCornerRadius="@dimen/corner_radius_card"
+                    app:cardElevation="2dp"
+                    android:layout_marginBottom="@dimen/spacing_lg"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackground">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/card_padding_horizontal"
+                        android:paddingTop="@dimen/spacing_md"
+                        android:paddingBottom="@dimen/spacing_md">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/cfg_prefixo_titulo"
+                                android:textColor="@color/texto_primario"
+                                android:textSize="@dimen/text_body"
+                                android:textStyle="bold" />
+                            <TextView
+                                android:id="@+id/txtPrefixoStatus"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/texto_secundario"
+                                android:textSize="@dimen/text_small"
+                                android:layout_marginTop="2dp" />
+                        </LinearLayout>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="›"
+                            android:textColor="@color/cinza_claro"
+                            android:textSize="24sp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- ===== Section: About ===== -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="SOBRE"
+                    android:textColor="@color/ciano"
+                    android:textSize="@dimen/text_small"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="@dimen/spacing_sm" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardBackgroundColor="@color/bg_card"
+                    app:cardCornerRadius="@dimen/corner_radius_card"
+                    app:cardElevation="2dp"
+                    android:layout_marginBottom="@dimen/spacing_md">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="@dimen/spacing_md">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/app_name"
+                            android:textColor="@color/texto_primario"
+                            android:textSize="@dimen/text_subtitle"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/txtVersao"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/spacing_xs"
+                            android:text="@string/cfg_versao"
+                            android:textColor="@color/texto_secundario"
+                            android:textSize="@dimen/text_caption" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/spacing_xs"
+                            android:text="@string/cfg_open_source"
+                            android:textColor="@color/verde"
+                            android:textSize="@dimen/text_caption"
+                            android:textStyle="bold" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/cinza_medio"
+                            android:layout_marginTop="@dimen/spacing_md"
+                            android:layout_marginBottom="@dimen/spacing_md" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/cfg_legal"
+                            android:textColor="@color/texto_secundario"
+                            android:textSize="@dimen/text_small"
+                            android:lineSpacingExtra="2dp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Footer space -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/spacing_xl" />
+
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

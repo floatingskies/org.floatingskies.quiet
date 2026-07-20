@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="24dp"
+    android:padding="@dimen/spacing_lg"
     android:background="@color/bg_card">
 
     <TextView
@@ -16,17 +17,19 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginTop="@dimen/spacing_sm"
+        android:layout_marginBottom="@dimen/spacing_lg"
         android:text="Escolha como deseja adicionar:"
         android:textColor="@color/texto_secundario"
-        android:textSize="14sp" />
+        android:textSize="@dimen/text_caption"
+        android:lineSpacingExtra="2dp" />
 
     <Button
         android:id="@+id/btnImportar"
         style="@style/BotaoPrimario"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:minHeight="@dimen/touch_target_min"
         android:text="@string/wl_btn_importar" />
 
     <Button
@@ -34,15 +37,27 @@
         style="@style/BotaoSecundario"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="@dimen/spacing_md"
+        android:minHeight="@dimen/touch_target_min"
         android:text="@string/wl_btn_digitar" />
+
+    <Button
+        android:id="@+id/btnImportarTodos"
+        style="@style/BotaoSecundario"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_sm"
+        android:minHeight="@dimen/touch_target_min"
+        android:text="@string/wl_btn_importar_todos" />
 
     <Button
         android:id="@+id/btnCancelar"
         style="@style/Widget.Material3.Button.TextButton"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_height="@dimen/touch_target_min"
+        android:layout_marginTop="@dimen/spacing_sm"
+        android:minHeight="@dimen/touch_target_min"
         android:text="@string/wl_cancelar"
-        android:textColor="@color/texto_secundario" />
+        android:textColor="@color/texto_secundario"
+        android:textSize="@dimen/text_caption" />
 </LinearLayout>

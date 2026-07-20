@@ -40,4 +40,22 @@ interface BlockedCallDao {
 
     @Query("SELECT COUNT(*) FROM chamadas_bloqueadas")
     suspend fun contar(): Int
+
+    @Query("DELETE FROM chamadas_bloqueadas WHERE id = :id")
+    suspend fun deletarPorId(id: Long)
+
+    @Query("SELECT COUNT(*) FROM chamadas_bloqueadas WHERE dataHora >= :startOfDay")
+    suspend fun contarHoje(startOfDay: Long = getStartOfDay()): Int
+
+    companion object {
+        fun getStartOfDay(): Long {
+            val cal = java.util.Calendar.getInstance().apply {
+                set(java.util.Calendar.HOUR_OF_DAY, 0)
+                set(java.util.Calendar.MINUTE, 0)
+                set(java.util.Calendar.SECOND, 0)
+                set(java.util.Calendar.MILLISECOND, 0)
+            }
+            return cal.timeInMillis
+        }
+    }
 }

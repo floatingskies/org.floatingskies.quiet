@@ -6,10 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import org.floatingskies.quiet.App
 import org.floatingskies.quiet.MainActivity
 import org.floatingskies.quiet.R
 import org.floatingskies.quiet.databinding.ActivityOnboardingBinding
@@ -21,30 +21,24 @@ import org.floatingskies.quiet.util.PermissionHelper
  * Fluxo:
  *   1. Usuário vê os benefícios
  *   2. Concede todas as permissões (uma a uma)
- *   3. Concede sobreposição (Android 6+)
- *   4. Concede ignorar bateria (Android 6+)
+ *   3. Concede ignorar bateria (Android 6+)
+ *   4. Concede role de call screening (Android 10+)
  *   5. Vai para a MainActivity
  */
 class OnboardingActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityOnboardingBinding
 
-    private val pedirMultiplasPermissoes = registerForActivityResult(
-        ActivityResultContracts.RequestMultiplePermissions()
-    ) { resultado ->
-        atualizarStatusPermissoes()
-        if (PermissionHelper.todasConcedidas(this)) {
-            binding.btnProximo.isEnabled = true
-            binding.btnProximo.text = getString(R.string.onb_btn_comecar)
-            // Auto-passa para overlay e bateria
-            checarOverlayEBateria()
-        } else {
-            Toast.makeText(this, "Conceda todas as permissões para o app funcionar", Toast.LENGTH_LONG).show()
-        }
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // If onboarding was already completed, go straight to dashboard
+        if (App.instance.prefs.onboardingConcluido) {
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
+            return
+        }
+
         binding = ActivityOnboardingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -52,31 +46,33 @@ class OnboardingActivity : AppCompatActivity() {
 
         binding.btnConceder.setOnClickListener {
             PermissionHelper.pedirTodas(this)
-            // O resultado chega via pedirMultiplasPermissoes — registra via callback
-            // mas como o requestPermissions faz request direto, registrar manualmente:
-            registrarCallbackPermissoes()
         }
 
         binding.btnProximo.setOnClickListener {
             if (PermissionHelper.todasConcedidas(this)) {
-                org.floatingskies.quiet.App.instance.prefs.onboardingConcluido = true
-                startActivity(Intent(this, MainActivity::class.java))
-                finish()
+                if (tudoProntoParaIniciar()) {
+                    concluirEIrParaDashboard()
+                } else {
+                    checarBateriaERole()
+                }
             } else {
-                Toast.makeText(this, "Conceda todas as permissões primeiro", Toast.LENGTH_SHORT).show()
+                MaterialAlertDialogBuilder(this)
+                    .setMessage(R.string.onb_falta_permissoes)
+                    .setPositiveButton(R.string.ok, null)
+                    .show()
             }
         }
 
-        // Já concedidas? Habilita direto
+        // Already granted all? Check if we can skip onboarding entirely
+        if (PermissionHelper.todasConcedidas(this) && tudoProntoParaIniciar()) {
+            concluirEIrParaDashboard()
+            return
+        }
         if (PermissionHelper.todasConcedidas(this)) {
             binding.btnProximo.isEnabled = true
-            binding.btnConceder.text = "Permissões OK ✓"
+            binding.btnConceder.text = getString(R.string.onb_todas_concedidas)
+            checarBateriaERole()
         }
-    }
-
-    private fun registrarCallbackPermissoes() {
-        // Como o PermissionHelper.pedirTodas() usa requestPermissions() com requestCode RC_PERMISSOES,
-        // interceptamos via onRequestPermissionsResult
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
@@ -85,8 +81,8 @@ class OnboardingActivity : AppCompatActivity() {
             atualizarStatusPermissoes()
             if (PermissionHelper.todasConcedidas(this)) {
                 binding.btnProximo.isEnabled = true
-                binding.btnConceder.text = "Permissões OK ✓"
-                checarOverlayEBateria()
+                binding.btnConceder.text = getString(R.string.onb_todas_concedidas)
+                checarBateriaERole()
             }
         }
     }
@@ -94,9 +90,11 @@ class OnboardingActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {
-            PermissionHelper.RC_OVERLAY,
             PermissionHelper.RC_BATERIA,
-            PermissionHelper.RC_ROLE_CALL_SCREENING -> atualizarStatusPermissoes()
+            PermissionHelper.RC_ROLE_CALL_SCREENING -> {
+                atualizarStatusPermissoes()
+                verificarAvancoAutomatico()
+            }
         }
     }
 
@@ -105,25 +103,22 @@ class OnboardingActivity : AppCompatActivity() {
         lista.removeAllViews()
 
         val itens = listOf(
-            ItemPermissao(R.string.onb_perm_phone, R.string.onb_perm_contacts, "phone") {
+            ItemPermissao(R.string.onb_perm_phone, "phone") {
                 PermissionHelper.todasConcedidas(this)
             },
-            ItemPermissao(R.string.onb_perm_contacts, 0, "contacts") {
+            ItemPermissao(R.string.onb_perm_contacts, "contacts") {
                 checkSelfPermission(android.Manifest.permission.READ_CONTACTS) ==
                     android.content.pm.PackageManager.PERMISSION_GRANTED
             },
-            ItemPermissao(R.string.onb_perm_notifications, 0, "notif") {
+            ItemPermissao(R.string.onb_perm_notifications, "notif") {
                 android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.TIRAMISU ||
                 checkSelfPermission(android.Manifest.permission.POST_NOTIFICATIONS) ==
                     android.content.pm.PackageManager.PERMISSION_GRANTED
             },
-            ItemPermissao(R.string.onb_perm_overlay, 0, "overlay") {
-                PermissionHelper.temOverlay(this)
-            },
-            ItemPermissao(R.string.onb_perm_battery, 0, "battery") {
+            ItemPermissao(R.string.onb_perm_battery, "battery") {
                 PermissionHelper.temIgnorarBateria(this)
             },
-            ItemPermissao(R.string.onb_perm_padrao, 0, "padrao") {
+            ItemPermissao(R.string.onb_perm_padrao, "padrao") {
                 if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.Q) true
                 else PermissionHelper.temRoleCallScreening(this)
             }
@@ -148,7 +143,6 @@ class OnboardingActivity : AppCompatActivity() {
                     "contacts" -> {
                         requestPermissions(arrayOf(android.Manifest.permission.READ_CONTACTS), 1002)
                     }
-                    "overlay" -> PermissionHelper.pedirOverlay(this)
                     "battery" -> PermissionHelper.pedirIgnorarBateria(this)
                     "padrao" -> PermissionHelper.pedirRoleCallScreening(this)
                 }
@@ -161,30 +155,53 @@ class OnboardingActivity : AppCompatActivity() {
         montarListaPermissoes()
     }
 
-    private fun checarOverlayEBateria() {
-        if (!PermissionHelper.temOverlay(this)) {
-            Toast.makeText(this, "Conceda também a permissão de sobrepor apps", Toast.LENGTH_LONG).show()
-            PermissionHelper.pedirOverlay(this)
-        } else if (!PermissionHelper.temIgnorarBateria(this)) {
-            Toast.makeText(this, "Permita ignorar otimização de bateria para a proteção não ser desligada", Toast.LENGTH_LONG).show()
-            PermissionHelper.pedirIgnorarBateria(this)
+    private fun tudoProntoParaIniciar(): Boolean {
+        if (!PermissionHelper.temIgnorarBateria(this)) return false
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q &&
+            !PermissionHelper.temRoleCallScreening(this)) return false
+        return true
+    }
+
+    private fun concluirEIrParaDashboard() {
+        App.instance.prefs.onboardingConcluido = true
+        App.instance.prefs.protecaoAtiva = true
+        startActivity(Intent(this, MainActivity::class.java))
+        finish()
+    }
+
+    private fun checarBateriaERole() {
+        if (!PermissionHelper.temIgnorarBateria(this)) {
+            MaterialAlertDialogBuilder(this)
+                .setMessage("Permita ignorar otimização de bateria para que a proteção não seja desligada pelo sistema.")
+                .setPositiveButton("Permitir") { _, _ ->
+                    PermissionHelper.pedirIgnorarBateria(this)
+                }
+                .setNegativeButton(R.string.cancelar, null)
+                .show()
+        } else if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q &&
+                   !PermissionHelper.temRoleCallScreening(this)) {
+            MaterialAlertDialogBuilder(this)
+                .setMessage(R.string.onb_aviso_padrao)
+                .setPositiveButton("Permitir") { _, _ ->
+                    PermissionHelper.pedirRoleCallScreening(this)
+                }
+                .setNegativeButton(R.string.cancelar, null)
+                .show()
+        } else {
+            // All done, enable the start button
+            binding.btnProximo.isEnabled = true
+            binding.btnProximo.text = getString(R.string.onb_btn_comecar)
         }
     }
 
-    private fun ehDialerPadrao(): Boolean {
-        return if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-            try {
-                val tm = getSystemService(android.telecom.TelecomManager::class.java)
-                tm?.defaultDialerPackage == packageName
-            } catch (_: Exception) {
-                false
-            }
-        } else true
+    private fun verificarAvancoAutomatico() {
+        if (tudoProntoParaIniciar()) {
+            concluirEIrParaDashboard()
+        }
     }
 
     private data class ItemPermissao(
         val tituloRes: Int,
-        val descRes: Int,
         val id: String,
         val verificador: () -> Boolean
     )

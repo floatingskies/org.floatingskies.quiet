@@ -9,7 +9,8 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/preto">
+        android:background="@color/preto"
+        android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
@@ -21,279 +22,315 @@
             android:background="@color/preto" />
     </com.google.android.material.appbar.AppBarLayout>
 
-    <ScrollView
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:fillViewport="true">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="20dp">
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:scrollbars="none">
 
-            <!-- ===== Card de status ===== -->
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardStatus"
-                style="@style/CardDashboard"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardBackgroundColor="@color/ativo_verde"
-                app:strokeColor="@color/ativo_verde_borda"
-                app:strokeWidth="1dp">
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_lg"
+                android:layout_gravity="center_horizontal">
 
+                <!-- Max width wrapper for tablets -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
+                    android:orientation="vertical"
+                    android:maxWidth="@dimen/content_max_width"
+                    android:layout_gravity="center_horizontal">
 
-                    <ImageView
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:src="@drawable/ic_shield"
-                        android:tint="@color/verde" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
+                    <!-- Status Card -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cardStatus"
+                        style="@style/CardDashboard"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginStart="14dp"
-                        android:orientation="vertical">
-                        <TextView
-                            android:id="@+id/txtStatus"
-                            android:layout_width="wrap_content"
+                        app:cardBackgroundColor="@color/ativo_verde"
+                        app:strokeColor="@color/ativo_verde_borda"
+                        app:strokeWidth="1.5dp"
+                        android:foreground="?attr/selectableItemBackground">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/dash_status_ativo"
-                            android:textColor="@color/verde"
-                            android:textSize="22sp"
-                            android:textStyle="bold" />
-                        <TextView
-                            android:id="@+id/txtStatusDesc"
-                            android:layout_width="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:padding="@dimen/spacing_md">
+
+                            <ImageView
+                                android:layout_width="@dimen/icon_size_large"
+                                android:layout_height="@dimen/icon_size_large"
+                                android:src="@drawable/ic_shield"
+                                app:tint="@color/verde"
+                                android:contentDescription="@string/dash_status_ativo" />
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginStart="@dimen/spacing_md"
+                                android:orientation="vertical">
+                                <TextView
+                                    android:id="@+id/txtStatus"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/dash_status_ativo"
+                                    android:textColor="@color/verde"
+                                    android:textSize="22sp"
+                                    android:textStyle="bold" />
+                                <TextView
+                                    android:id="@+id/txtStatusDesc"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/dash_status_bloqueando"
+                                    android:textColor="@color/texto_secundario"
+                                    android:textSize="@dimen/text_caption"
+                                    android:layout_marginTop="2dp" />
+                            </LinearLayout>
+
+                            <com.google.android.material.materialswitch.MaterialSwitch
+                                android:id="@+id/switchProtecao"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:checked="true"
+                                android:minHeight="@dimen/touch_target_min" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Stats Row -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="@dimen/spacing_sm">
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="@string/dash_status_bloqueando"
-                            android:textColor="@color/texto_secundario"
-                            android:textSize="14sp" />
+                            android:layout_weight="1"
+                            android:layout_marginEnd="@dimen/spacing_xs"
+                            app:cardBackgroundColor="@color/bg_card_destaque"
+                            app:cardCornerRadius="@dimen/corner_radius_small"
+                            app:cardElevation="0dp">
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:gravity="center"
+                                android:padding="@dimen/spacing_md">
+                                <TextView
+                                    android:id="@+id/txtBlockedToday"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="0"
+                                    android:textColor="@color/vermelho"
+                                    android:textSize="28sp"
+                                    android:textStyle="bold" />
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/dash_blocked_today"
+                                    android:textColor="@color/texto_secundario"
+                                    android:textSize="@dimen/text_small" />
+                            </LinearLayout>
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginStart="@dimen/spacing_xs"
+                            app:cardBackgroundColor="@color/bg_card_destaque"
+                            app:cardCornerRadius="@dimen/corner_radius_small"
+                            app:cardElevation="0dp">
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:gravity="center"
+                                android:padding="@dimen/spacing_md">
+                                <TextView
+                                    android:id="@+id/txtWhitelistCount"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="0"
+                                    android:textColor="@color/ciano"
+                                    android:textSize="28sp"
+                                    android:textStyle="bold" />
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/dash_trusted_contacts"
+                                    android:textColor="@color/texto_secundario"
+                                    android:textSize="@dimen/text_small" />
+                            </LinearLayout>
+                        </com.google.android.material.card.MaterialCardView>
                     </LinearLayout>
 
-                    <com.google.android.material.materialswitch.MaterialSwitch
-                        android:id="@+id/switchProtecao"
-                        android:layout_width="wrap_content"
+                    <!-- Card: Whitelist -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cardWhitelist"
+                        style="@style/CardDashboard"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:checked="true" />
+                        android:foreground="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:focusable="true">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:padding="@dimen/spacing_md">
+
+                            <ImageView
+                                android:layout_width="@dimen/icon_size_medium"
+                                android:layout_height="@dimen/icon_size_medium"
+                                android:src="@drawable/ic_contact"
+                                app:tint="@color/ciano"
+                                android:contentDescription="@string/dash_card_whitelist_titulo" />
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginStart="@dimen/spacing_md"
+                                android:orientation="vertical">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/dash_card_whitelist_titulo"
+                                    android:textAppearance="@style/TextoCard" />
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/dash_card_whitelist_desc"
+                                    android:textAppearance="@style/TextoCardDesc" />
+                            </LinearLayout>
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:src="@drawable/ic_settings"
+                                app:tint="@color/cinza_claro"
+                                android:contentDescription="Navigate" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Card: Blocked -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cardBlocked"
+                        style="@style/CardDashboard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:focusable="true">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:padding="@dimen/spacing_md">
+
+                            <ImageView
+                                android:layout_width="@dimen/icon_size_medium"
+                                android:layout_height="@dimen/icon_size_medium"
+                                android:src="@drawable/ic_block"
+                                app:tint="@color/vermelho"
+                                android:contentDescription="@string/dash_card_blocked_titulo" />
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginStart="@dimen/spacing_md"
+                                android:orientation="vertical">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/dash_card_blocked_titulo"
+                                    android:textAppearance="@style/TextoCard" />
+                                <TextView
+                                    android:id="@+id/txtBlockedCount"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/dash_card_blocked_desc"
+                                    android:textAppearance="@style/TextoCardDesc" />
+                            </LinearLayout>
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:src="@drawable/ic_settings"
+                                app:tint="@color/cinza_claro"
+                                android:contentDescription="Navigate" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Card: Settings -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cardConfig"
+                        style="@style/CardDashboard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:focusable="true">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:padding="@dimen/spacing_md">
+
+                            <ImageView
+                                android:layout_width="@dimen/icon_size_medium"
+                                android:layout_height="@dimen/icon_size_medium"
+                                android:src="@drawable/ic_settings"
+                                app:tint="@color/cinza_claro"
+                                android:contentDescription="@string/dash_card_config_titulo" />
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginStart="@dimen/spacing_md"
+                                android:orientation="vertical">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/dash_card_config_titulo"
+                                    android:textAppearance="@style/TextoCard" />
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/dash_card_config_desc"
+                                    android:textAppearance="@style/TextoCardDesc" />
+                            </LinearLayout>
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:src="@drawable/ic_settings"
+                                app:tint="@color/cinza_claro"
+                                android:contentDescription="Navigate" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Footer space -->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/spacing_xl" />
+
                 </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- ===== Aviso trial / premium ===== -->
-            <TextView
-                android:id="@+id/txtPlano"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@string/dash_trial_msg"
-                android:textColor="@color/amarelo"
-                android:textSize="13sp"
-                android:background="@color/cinza_escuro"
-                android:padding="12dp" />
-
-            <!-- ===== Card: Whitelist ===== -->
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardWhitelist"
-                style="@style/CardDashboard"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:focusable="true">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
-
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:src="@drawable/ic_contact"
-                        android:tint="@color/ciano" />
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginStart="14dp"
-                        android:orientation="vertical">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/dash_card_whitelist_titulo"
-                            android:textAppearance="@style/TextoCard" />
-                        <TextView
-                            android:id="@+id/txtWhitelistCount"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/dash_card_whitelist_desc"
-                            android:textAppearance="@style/TextoCardDesc" />
-                    </LinearLayout>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="›"
-                        android:textColor="@color/cinza_claro"
-                        android:textSize="32sp" />
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- ===== Card: Bloqueadas ===== -->
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardBlocked"
-                style="@style/CardDashboard"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:focusable="true">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
-
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:src="@drawable/ic_block"
-                        android:tint="@color/vermelho" />
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginStart="14dp"
-                        android:orientation="vertical">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/dash_card_blocked_titulo"
-                            android:textAppearance="@style/TextoCard" />
-                        <TextView
-                            android:id="@+id/txtBlockedCount"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/dash_card_blocked_desc"
-                            android:textAppearance="@style/TextoCardDesc" />
-                    </LinearLayout>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="›"
-                        android:textColor="@color/cinza_claro"
-                        android:textSize="32sp" />
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- ===== Card: Ativar / Pagamento ===== -->
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardAtivar"
-                style="@style/CardDashboard"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardBackgroundColor="@color/cinza_escuro"
-                app:strokeColor="@color/amarelo"
-                app:strokeWidth="1dp"
-                android:clickable="true"
-                android:focusable="true">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
-
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:src="@drawable/ic_lock"
-                        android:tint="@color/amarelo" />
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginStart="14dp"
-                        android:orientation="vertical">
-                        <TextView
-                            android:id="@+id/txtAtivarTitulo"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/dash_card_ativar_titulo"
-                            android:textAppearance="@style/TextoCard" />
-                        <TextView
-                            android:id="@+id/txtAtivarDesc"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/dash_card_ativar_desc"
-                            android:textAppearance="@style/TextoCardDesc" />
-                    </LinearLayout>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="›"
-                        android:textColor="@color/cinza_claro"
-                        android:textSize="32sp" />
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- ===== Card: Configurações ===== -->
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardConfig"
-                style="@style/CardDashboard"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:focusable="true">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
-
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:src="@drawable/ic_settings"
-                        android:tint="@color/cinza_claro" />
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginStart="14dp"
-                        android:orientation="vertical">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/dash_card_config_titulo"
-                            android:textAppearance="@style/TextoCard" />
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/dash_card_config_desc"
-                            android:textAppearance="@style/TextoCardDesc" />
-                    </LinearLayout>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="›"
-                        android:textColor="@color/cinza_claro"
-                        android:textSize="32sp" />
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- Espaço final -->
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="40dp" />
-
-        </LinearLayout>
-    </ScrollView>
+            </LinearLayout>
+        </ScrollView>
+    </FrameLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

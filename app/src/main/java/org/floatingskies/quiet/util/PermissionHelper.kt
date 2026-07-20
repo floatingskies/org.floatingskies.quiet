@@ -21,13 +21,11 @@ import androidx.core.content.ContextCompat
  *   2. READ_CONTACTS (importar contatos para a whitelist)
  *   3. ANSWER_PHONE_CALLS (Android 8+ - recusar chamada)
  *   4. POST_NOTIFICATIONS (Android 13+)
- *   5. Sobreposição de outras apps (Android 6+ - alguns fabricantes exigem)
- *   6. Bateria/Otimização (Android 6+ - para o app não ser morto em segundo plano)
+ *   5. Bateria/Otimização (Android 6+ - para o app não ser morto em segundo plano)
  */
 object PermissionHelper {
 
     const val RC_PERMISSOES = 1001
-    const val RC_OVERLAY = 1002
     const val RC_BATERIA = 1003
     const val RC_ROLE_CALL_SCREENING = 1004
 
@@ -62,23 +60,6 @@ object PermissionHelper {
             permissoesNecessarias(),
             RC_PERMISSOES
         )
-    }
-
-    /** Android 6+: permissão para desenhar sobre outras apps (necessária em alguns fabricantes). */
-    fun temOverlay(context: Context): Boolean {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            Settings.canDrawOverlays(context)
-        } else true
-    }
-
-    fun pedirOverlay(activity: Activity) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !temOverlay(activity)) {
-            val intent = Intent(
-                Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-                Uri.parse("package:${activity.packageName}")
-            )
-            activity.startActivityForResult(intent, RC_OVERLAY)
-        }
     }
 
     /** Android 6+: ignorar otimização de bateria (para o serviço não ser morto). */

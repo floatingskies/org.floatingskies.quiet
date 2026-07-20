@@ -17,11 +17,6 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_CALL_SCREENING" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-
-    <!-- ===== Permissões de internet (validação de código + pagamento) ===== -->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <!-- ===== Permissões de armazenamento (exportar log CSV) ===== -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
@@ -35,7 +30,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BloqueadorBR"
-        android:requestLegacyExternalStorage="true"
         tools:targetApi="34">
 
         <!-- ===== Tela inicial (Onboarding / Dashboard) ===== -->
@@ -58,18 +52,6 @@
             android:name=".ui.whitelist.WhitelistActivity"
             android:exported="false"
             android:label="@string/titulo_whitelist"
-            android:parentActivityName=".MainActivity" />
-
-        <activity
-            android:name=".ui.payment.PaymentActivity"
-            android:exported="false"
-            android:label="@string/titulo_pagamento"
-            android:parentActivityName=".MainActivity" />
-
-        <activity
-            android:name=".ui.activation.ActivationActivity"
-            android:exported="false"
-            android:label="@string/titulo_ativacao"
             android:parentActivityName=".MainActivity" />
 
         <activity

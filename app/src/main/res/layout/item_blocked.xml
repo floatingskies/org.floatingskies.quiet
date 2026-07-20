@@ -20,7 +20,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@drawable/ic_block"
-            android:tint="@color/vermelho" />
+            app:tint="@color/vermelho" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -41,13 +41,34 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/texto_secundario"
                 android:textSize="13sp" />
-            <TextView
-                android:id="@+id/txtVezes"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/amarelo"
-                android:textSize="13sp"
-                android:textStyle="bold" />
+                android:orientation="horizontal"
+                android:layout_marginTop="2dp">
+                <TextView
+                    android:id="@+id/txtVezes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/amarelo"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/txtScammerBadge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/bl_scammer_badge"
+                    android:textColor="@color/vermelho"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:background="@color/inativo_vermelho"
+                    android:paddingStart="6dp"
+                    android:paddingEnd="6dp"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp"
+                    android:visibility="gone" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

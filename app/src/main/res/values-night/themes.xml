@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Apenas um override de tema para night mode; o tema principal está em values/styles.xml -->
-    <style name="Theme.BloqueadorBR.NightOverride" parent="Theme.BloqueadorBR">
-        <!-- Tema escuro já é o padrão; este arquivo existe para futuras customizações por modo -->
+    <style name="Theme.Quiet.NightOverride" parent="Theme.Quiet">
+        <!-- Dark theme is default; this exists for future light mode support -->
     </style>
+    <style name="Theme.BloqueadorBR.NightOverride" parent="Theme.BloqueadorBR" />
 </resources>
